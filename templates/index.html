@@ -9,19 +9,19 @@
     <div class="container">
         <h1>Todo List</h1>
         <form action="{{ url_for('add') }}" method="post" class="todo-form">
-            <input type="text" name="todo" placeholder="Enter a new todo" required>
+            <input type="text" name="title" placeholder="Enter a new task" required>
             <button type="submit">Add</button>
         </form>
         <ul class="todo-list">
-            {% for todo in todos %}
-            <li class="todo-item {% if todo.done %}done{% endif %}">
-                <span>{{ loop.index }}. {{ todo.task }}</span>
+            {% for task in tasks %}
+            <li class="todo-item {% if task.done %}done{% endif %}">
+                <span>{{ loop.index }}. {{ task.title }}</span>
                 <div class="actions">
-                    <a href="{{ url_for('check', index=loop.index0) }}" class="btn check-btn">
-                        {% if todo.done %}Undo{% else %}Check{% endif %}
+                    <a href="{{ url_for('check', index=task.id) }}" class="btn check-btn">
+                        {% if task.done %}Undo{% else %}Check{% endif %}
                     </a>
-                    <a href="{{ url_for('edit', index=loop.index0) }}" class="btn edit-btn">Edit</a>
-                    <a href="{{ url_for('delete', index=loop.index0) }}" class="btn delete-btn">Delete</a>
+                    <a href="{{ url_for('edit', index=task.id) }}" class="btn edit-btn">Edit</a>
+                    <a href="{{ url_for('delete', index=task.id) }}" class="btn delete-btn">Delete</a>
                 </div>
             </li>
             {% endfor %}
